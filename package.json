@@ -1,0 +1,23 @@
+{
+  "name": "admin-dashboard",
+  "version": "1.0.0",
+  "description": "Admin Dashboard with Tailwind CSS",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server",
+    "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "keywords": [
+    "admin",
+    "dashboard",
+    "tailwind"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2"
+  }
+} 

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="dist/output.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-md px-4 py-3 flex items-center justify-between fixed top-0 w-full z-10">
+        <div class="flex items-center">
+            <button id="sidebar-toggle" class="text-gray-600 focus:outline-none lg:hidden mr-2">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <h1 class="text-xl font-bold text-primary-600">Admin</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <button id="notifications-menu" class="text-gray-600 focus:outline-none">
+                    <i class="fas fa-bell"></i>
+                    <span class="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+                </button>
+                <!-- Notification Panel -->
+                <div id="notifications-panel" class="hidden absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 w-80">
+                    <div class="py-2 px-4 bg-primary-600 text-white font-semibold">Notifications</div>
+                    <div class="max-h-64 overflow-y-auto">
+                        <a href="#" class="block px-4 py-3 hover:bg-gray-100 border-b">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-primary-100 rounded-full p-1">
+                                    <i class="fas fa-user-plus text-primary-600"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">New user registered</p>
+                                    <p class="text-xs text-gray-500">10 minutes ago</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block px-4 py-3 hover:bg-gray-100 border-b">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-green-100 rounded-full p-1">
+                                    <i class="fas fa-shopping-cart text-green-600"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">New order received</p>
+                                    <p class="text-xs text-gray-500">1 hour ago</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block px-4 py-3 hover:bg-gray-100">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-red-100 rounded-full p-1">
+                                    <i class="fas fa-exclamation-triangle text-red-600"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Server error alert</p>
+                                    <p class="text-xs text-gray-500">2 hours ago</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <a href="#" class="block py-2 text-sm font-medium text-center text-primary-600 bg-gray-50 hover:bg-gray-100">
+                        View all notifications
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <button class="flex items-center space-x-2 focus:outline-none">
+                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=0D8ABC&color=fff" alt="User avatar" class="h-8 w-8 rounded-full">
+                    <span class="hidden md:inline-block text-sm font-medium text-gray-700">abokor keyse </span>
+                    <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="bg-gray-900 text-white w-64 fixed top-0 h-full pt-16 z-0 transition-all duration-300 transform lg:translate-x-0 -translate-x-full lg:block hidden">
+        <div class="p-4">
+            <ul>
+                <li class="mb-1">
+                    <a href="index.html" class="flex items-center px-4 py-3 rounded-md bg-primary-700 text-white">
+                        <i class="fas fa-tachometer-alt w-5"></i>
+                        <span class="ml-2">Dashboard</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="users.html" class="flex items-center px-4 py-3 rounded-md hover:bg-gray-800 text-gray-300 hover:text-white">
+                        <i class="fas fa-users w-5"></i>
+                        <span class="ml-2">Users</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="#" class="flex items-center px-4 py-3 rounded-md hover:bg-gray-800 text-gray-300 hover:text-white">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span class="ml-2">Products</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="#" class="flex items-center px-4 py-3 rounded-md hover:bg-gray-800 text-gray-300 hover:text-white">
+                        <i class="fas fa-chart-bar w-5"></i>
+                        <span class="ml-2">Analytics</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="#" class="flex items-center px-4 py-3 rounded-md hover:bg-gray-800 text-gray-300 hover:text-white">
+                        <i class="fas fa-cog w-5"></i>
+                        <span class="ml-2">Settings</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="mt-10 pt-6 border-t border-gray-700">
+                <a href="#" class="flex items-center px-4 py-3 rounded-md hover:bg-gray-800 text-gray-300 hover:text-white">
+                    <i class="fas fa-question-circle w-5"></i>
+                    <span class="ml-2">Help & Support</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 rounded-md hover:bg-gray-800 text-gray-300 hover:text-white">
+                    <i class="fas fa-sign-out-alt w-5"></i>
+                    <span class="ml-2">Logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="content" class="pt-16 pb-8 px-4 md:px-6 lg:ml-64 transition-all duration-300">
+        <div class="max-w-7xl mx-auto">
+            <!-- Dashboard Header -->
+            <div class="mt-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
+                <p class="text-gray-600">Welcome back, John! Here's what's happening with your business today.</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="card p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Total Revenue</p>
+                            <h3 class="text-2xl font-bold text-gray-800">$24,780</h3>
+                            <p class="text-sm text-green-600 mt-1">
+                                <i class="fas fa-arrow-up"></i> 12% from last month
+                            </p>
+                        </div>
+                        <div class="bg-primary-100 p-3 rounded-full">
+                            <i class="fas fa-dollar-sign text-primary-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Total Orders</p>
+                            <h3 class="text-2xl font-bold text-gray-800">1,482</h3>
+                            <p class="text-sm text-green-600 mt-1">
+                                <i class="fas fa-arrow-up"></i> 8% from last month
+                            </p>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-full">
+                            <i class="fas fa-shopping-bag text-green-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Total Users</p>
+                            <h3 class="text-2xl font-bold text-gray-800">3,642</h3>
+                            <p class="text-sm text-green-600 mt-1">
+                                <i class="fas fa-arrow-up"></i> 5% from last month
+                            </p>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-full">
+                            <i class="fas fa-users text-blue-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Conversion Rate</p>
+                            <h3 class="text-2xl font-bold text-gray-800">3.6%</h3>
+                            <p class="text-sm text-red-600 mt-1">
+                                <i class="fas fa-arrow-down"></i> 2% from last month
+                            </p>
+                        </div>
+                        <div class="bg-purple-100 p-3 rounded-full">
+                            <i class="fas fa-chart-pie text-purple-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="card p-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Revenue Overview</h4>
+                    <div class="h-80">
+                        <canvas id="revenue-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">User Growth</h4>
+                    <div class="h-80">
+                        <canvas id="users-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities and Tasks -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Recent Activities -->
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-lg font-semibold text-gray-800">Recent Activities</h4>
+                        <a href="#" class="text-sm text-primary-600 hover:text-primary-700">View all</a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-900">New user registered</p>
+                                <p class="text-xs text-gray-500">10 minutes ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-900">New order placed</p>
+                                <p class="text-xs text-gray-500">1 hour ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-900">System alert</p>
+                                <p class="text-xs text-gray-500">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-900">Settings updated</p>
+                                <p class="text-xs text-gray-500">5 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks -->
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-lg font-semibold text-gray-800">Tasks</h4>
+                        <button class="btn-primary text-xs">Add Task</button>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="flex items-center justify-between py-2 border-b">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 rounded">
+                                <span class="ml-3 text-sm font-medium text-gray-900">Review new customer applications</span>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">High</span>
+                        </li>
+                        <li class="flex items-center justify-between py-2 border-b">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 rounded">
+                                <span class="ml-3 text-sm font-medium text-gray-900">Prepare monthly report</span>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Medium</span>
+                        </li>
+                        <li class="flex items-center justify-between py-2 border-b">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 rounded">
+                                <span class="ml-3 text-sm font-medium text-gray-900">Update product inventory</span>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Urgent</span>
+                        </li>
+                        <li class="flex items-center justify-between py-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 rounded">
+                                <span class="ml-3 text-sm font-medium text-gray-900">Schedule team meeting</span>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Medium</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Recent Orders Table -->
+            <div class="card p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="text-lg font-semibold text-gray-800">Recent Orders</h4>
+                    <a href="#" class="text-sm text-primary-600 hover:text-primary-700">View all orders</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-0123</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jane Cooper</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jun 12, 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Completed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$96.35</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary-600 hover:text-primary-900 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-gray-600 hover:text-gray-900"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-0122</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Alex Morgan</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jun 11, 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Processing</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$124.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary-600 hover:text-primary-900 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-gray-600 hover:text-gray-900"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-0121</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Robert Fox</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jun 10, 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Completed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$65.20</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary-600 hover:text-primary-900 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-gray-600 hover:text-gray-900"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-0120</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jacob Jones</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jun 9, 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Cancelled</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$189.45</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary-600 hover:text-primary-900 mr-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-gray-600 hover:text-gray-900"><i class="fas fa-download"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="src/dashboard.js"></script>
+</body>
+</html> 
